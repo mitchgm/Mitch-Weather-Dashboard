@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+<link rel="stylesheet" href="./assets/css/styles.css"/>
+
+  <title>Document</title>
+</head>
+<body>
+  <form id="searchForm">
+    <label for="city">Search City</label><br>
+    <input type="text" id="city" name="city"><br>
+    <button type="submit">submit</button>
+  </form>
+  <main>
+    <div>
+        Today's Forecast
+    </div>
+    <div class="todayForecast">
+        <div id="todayForecast">
+
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-12">
+                <h3>
+                    5 Day Forecast
+                </h3>
+        </div>
+        
+    </div>
+    <div class="row">
+        <!--This are the divs the forecast will append-->
+        <div class="col bg-primary text-white ml-3 mb-3 rounded forecast"></div>
+        <div class="col bg-primary text-white ml-3 mb-3 rounded forecast"></div>
+        <div class="col bg-primary text-white ml-3 mb-3 rounded forecast"></div>
+        <div class="col bg-primary text-white ml-3 mb-3 rounded forecast"></div>
+        <div class="col bg-primary text-white ml-3 mb-3 rounded forecast"></div>
+    </div>
+  </main>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<!--This is get us the images we need-->
+
+  <script src="./assets/script.js"></script>
+</body>
+</html>
