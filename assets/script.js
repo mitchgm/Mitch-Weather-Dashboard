@@ -19,7 +19,7 @@ function getCoordinates(cityName) {
     // console.log(data)
     var cityLat = data[0].lat;
     var cityLon = data[0].lon;
-    console.log(cityLat, cityLon);
+    
     getWeather(cityLat, cityLon, cityName);
   })
 }
@@ -35,28 +35,33 @@ function getWeather(cityLat, cityLon, cityName){
    })
 
    .then(function(data) {
-    console.log(data);
-
-    var cityTemp = data.current.temp;
-    console.log(cityTemp);
-    var nameCity = cityName;
-    console.log(nameCity);
-    var newDate = new Date(data.current.dt * 1000).toLocaleDateString('en-US') ;
-    console.log(newDate);
-    var cityHumid = "Humidity: " + data.current.humidity;
-    console.log(cityHumid);
-    var cityWind = "Wind Speed: " + data.current.wind_speed;
-    console.log(cityWind);
-    var cityUV = "UV: " + data.current.uvi;
-    console.log(cityUV);
-    var weatherArray = [cityTemp, nameCity, newDate, cityHumid, cityWind, cityUV];
-    var list = data.list;
-    console.log(list)
     
 
+    var cityTemp = data.current.temp;
+    
+    var nameCity = cityName;
+   
+    var newDate = new Date(data.current.dt * 1000).toLocaleDateString('en-US') ;
+    
+    var cityHumid = "Humidity: " + data.current.humidity;
+   
+    var cityWind = "Wind Speed: " + data.current.wind_speed;
 
+    var cityUV = "UV: " + data.current.uvi;
+    var list = data.list;
+    
+    
 
-    mainEl.append(weatherArray);
+    console.log(data);
+    // creating the p elements for today's forecast and appending in the variable from our data array
+    mainEl.innerHTML = `<h1>${nameCity}</h1><p>${cityTemp}</p><p>${newDate}</p><p>${cityHumid}</p><p>${cityWind}</p><p>${cityUV}</p>`;
+    const forecastImg = document.createElement("img");
+    forecastImg.setAttribute("src", "https://openweathermap.org/img/wn/" + data.current.weather[0].icon + "@2x.png"
+    );
+    // this grabs the image from the weather api based on the forecast
+    forecastImg.setAttribute("alt", data.current.weather[0].description
+    );
+    mainEl.append(forecastImg);
 });
 
 
