@@ -2,8 +2,10 @@ var searchForm = document.querySelector('#searchForm');
 var mainEl = document.getElementById("todayForecast");
 var cityArray = [];
 var citiesEl = document.getElementById("pastCities");
-var pastCitySearch = document.querySelectorAll('.pastButton');
-console.log(pastCitySearch);
+var clearButton = document.getElementById("clearSearches");
+
+var cityStorage = localStorage.getItem("cityStorage");
+
 
 
 searchForm.addEventListener('submit', function (event) {
@@ -13,17 +15,15 @@ searchForm.addEventListener('submit', function (event) {
 
 })
 
-    
-pastCitySearch.addEventListener('click', function(){
-
-var pastInput = document.querySelector(".pastButton").value
-console.log(pastInput)
-//getCoordinates(pastInput);
+clearButton.addEventListener('click', function(cityStorage) {
+    localStorage.clear();
+    window.alert("clicked");
+   // pastCities(cityStorage);
+    clearPastCities();
 })
 
 
-
-function saveCity (userInput) {
+function saveCity (userInput, cityStorage) {
 
     var cityStorage = localStorage.getItem("cityStorage");
     if (cityStorage === null) {
@@ -37,11 +37,21 @@ function saveCity (userInput) {
     var nameCity = JSON.stringify(cityStorage);
     localStorage.setItem("cityStorage", nameCity);
 
+    clearPastCities();
     pastCities(cityStorage);
 
 };
 
-
+function clearPastCities () {
+    var pastT = document.getElementsByClassName("pastButton");
+    console.log(pastT);
+    for (var e = 0; e < pastT.length; e++) {
+      
+      pastT[e].remove();
+    };
+    
+    //  pastT.remove();
+  };
 
 
 
@@ -51,14 +61,25 @@ function pastCities (cityStorage) {
    
     for (var i = 0; i < cityStorage.length; i++) { 
         var cityButton = document.createElement("button");
-        var cityBr = document.createElement("br");
+
         cityButton.setAttribute("class", "pastButton")
         cityButton.textContent = cityStorage[i];
-        citiesEl.append(cityButton, cityBr);
+        citiesEl.append(cityButton);
+        cityButton.addEventListener('click', function(event) {
+            var city = event.target.innerText
+            getCoordinates(city)
+        })
         
         
     }
-
+    // var cityButtonEl = document.querySelectorAll('.pastButton');
+    // console.log(cityButtonEl);
+    // cityButtonEl.forEach(button => {
+    //     button.addEventListener('click', function(event) {
+    //         var city = event.target.innerText
+    //         getCoordinates(city)
+    //     })
+    // })
 };
 
 
@@ -115,7 +136,7 @@ function getWeather(cityLat, cityLon, cityName) {
 
 
 
-            console.log(data);
+            
             // creating the p elements for today's forecast and appending in the variable from our data array
             mainEl.innerHTML = `<h1>${nameCity}</h1><h4>${newDate}</h4><p>${cityTemp}</p><p>${cityHumid}</p><p>${cityWind}</p><p id=todayUvi>${cityUV}</p>`;
             const forecastImg = document.createElement("img");
@@ -155,7 +176,7 @@ function getWeather(cityLat, cityLon, cityName) {
             })
 
             .then(function (data) {
-                console.log(data);
+                
 
 
 
@@ -202,7 +223,7 @@ function getWeather(cityLat, cityLon, cityName) {
 
             });
     }
-    getForecast()
+    getForecast();
 
 
     //    }
