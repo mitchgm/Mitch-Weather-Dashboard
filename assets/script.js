@@ -2,6 +2,8 @@ var searchForm = document.querySelector('#searchForm');
 var mainEl = document.getElementById("todayForecast");
 var cityArray = [];
 var citiesEl = document.getElementById("pastCities");
+var pastCitySearch = document.querySelectorAll('.pastButton');
+console.log(pastCitySearch);
 
 
 searchForm.addEventListener('submit', function (event) {
@@ -9,9 +11,17 @@ searchForm.addEventListener('submit', function (event) {
     var userInput = document.querySelector('#city').value
     getCoordinates(userInput);
 
-    
-
 })
+
+    
+pastCitySearch.addEventListener('click', function(){
+
+var pastInput = document.querySelector(".pastButton").value
+console.log(pastInput)
+//getCoordinates(pastInput);
+})
+
+
 
 function saveCity (userInput) {
 
@@ -27,6 +37,8 @@ function saveCity (userInput) {
     var nameCity = JSON.stringify(cityStorage);
     localStorage.setItem("cityStorage", nameCity);
 
+    pastCities(cityStorage);
+
 };
 
 
@@ -34,13 +46,21 @@ function saveCity (userInput) {
 
 
 
-function pastCities () {
-    let pastCityName = localStorage.getItem(cityArray);
-    for () {
-
+function pastCities (cityStorage) {
+    
+   
+    for (var i = 0; i < cityStorage.length; i++) { 
+        var cityButton = document.createElement("button");
+        var cityBr = document.createElement("br");
+        cityButton.setAttribute("class", "pastButton")
+        cityButton.textContent = cityStorage[i];
+        citiesEl.append(cityButton, cityBr);
+        
+        
     }
 
 };
+
 
 function getCoordinates(cityName) {
     saveCity(cityName);
