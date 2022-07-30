@@ -11,15 +11,18 @@ var cityStorage = localStorage.getItem("cityStorage");
 searchForm.addEventListener('submit', function (event) {
     event.preventDefault();
     var userInput = document.querySelector('#city').value
+    clearPastCities();
     getCoordinates(userInput);
 
 })
 
 clearButton.addEventListener('click', function(cityStorage) {
+    clearPastCities();
     localStorage.clear();
+
     window.alert("clicked");
    // pastCities(cityStorage);
-    clearPastCities();
+    
 })
 
 
@@ -43,12 +46,18 @@ function saveCity (userInput, cityStorage) {
 };
 
 function clearPastCities () {
-    var pastT = document.getElementsByClassName("pastButton");
+    var pastT = document.querySelectorAll(".pastButton");
     console.log(pastT);
-    for (var e = 0; e < pastT.length; e++) {
+    pastT.forEach(function (pastT) {
+        pastT.remove();
+    });
+
+    
+
+    // for (var e = 0; e < pastT.length; e++) {
       
-      pastT[e].remove();
-    };
+    //   pastT[e].remove();
+    // };
     
     //  pastT.remove();
   };
