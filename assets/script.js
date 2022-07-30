@@ -1,6 +1,7 @@
 var searchForm = document.querySelector('#searchForm');
 var mainEl = document.getElementById("todayForecast");
 
+
 searchForm.addEventListener('submit', function(event) {
   event.preventDefault();
   var userInput = document.querySelector('#city').value
@@ -36,31 +37,52 @@ function getWeather(cityLat, cityLon, cityName){
 
    .then(function(data) {
     
-
-    var cityTemp = data.current.temp;
+    var newDate = "Today's Date: " + new Date(data.current.dt * 1000).toLocaleDateString('en-US') ;
+   
+    
+    var cityTemp = "temp: " + data.current.temp + " &#176F";
     
     var nameCity = cityName;
    
-    var newDate = new Date(data.current.dt * 1000).toLocaleDateString('en-US') ;
+    
     
     var cityHumid = "Humidity: " + data.current.humidity;
    
     var cityWind = "Wind Speed: " + data.current.wind_speed;
 
     var cityUV = "UV: " + data.current.uvi;
+
+  
+
+    
+
     var list = data.list;
     
     
 
     console.log(data);
     // creating the p elements for today's forecast and appending in the variable from our data array
-    mainEl.innerHTML = `<h1>${nameCity}</h1><p>${cityTemp}</p><p>${newDate}</p><p>${cityHumid}</p><p>${cityWind}</p><p>${cityUV}</p>`;
+    mainEl.innerHTML = `<h1>${nameCity}</h1><h4>${newDate}</h4><p>${cityTemp}</p><p>${cityHumid}</p><p>${cityWind}</p><p id=todayUvi>${cityUV}</p>`;
     const forecastImg = document.createElement("img");
     forecastImg.setAttribute("src", "https://openweathermap.org/img/wn/" + data.current.weather[0].icon + "@2x.png"
     );
     // this grabs the image from the weather api based on the forecast
     forecastImg.setAttribute("alt", data.current.weather[0].description
     );
+
+    if (data.current.uvi < 4 ) {
+        var uviCol =  document.getElementById("todayUvi")
+        uviCol.setAttribute("class", "text-success bg-white w-25")
+      }
+      else if (data.current.uvi >= 4 || data.current.uvi < 9) {
+        var uviCol =  document.getElementById("todayUvi")
+        uviCol.setAttribute("class", "text-warning bg-white w-25")
+      }
+      else {
+        var uviCol =  document.getElementById("todayUvi")
+        uviCol.setAttribute("class", "text-danger bg-white w-25")
+      }
+
     mainEl.append(forecastImg);
 });
 
