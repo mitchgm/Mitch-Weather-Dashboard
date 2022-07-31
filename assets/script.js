@@ -95,7 +95,7 @@ function pastCities (cityStorage) {
 
 function getCoordinates(cityName) {
     saveCity(cityName);
-    var url = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=5&appid=e83c587e46527b4ae82ea6920b0630db`
+    var url = `https://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=5&appid=e83c587e46527b4ae82ea6920b0630db`
 
     fetch(url)
         .then(function (response) {
