@@ -13,7 +13,7 @@ searchForm.addEventListener('submit', function (event) {
     var userInput = document.querySelector('#city').value
     clearPastCities();
     getCoordinates(userInput);
-
+    // this makes the search button fun our getCoordinates and clearPastCities function when clicked
 })
 
 clearButton.addEventListener('click', function(cityStorage) {
@@ -21,11 +21,11 @@ clearButton.addEventListener('click', function(cityStorage) {
     localStorage.clear();
 
     window.alert("clicked");
-   // pastCities(cityStorage);
+   // this allows us to clear the past cities when the button is clicked
     
 })
 
-
+// this function is saving out searches to local storage
 function saveCity (userInput, cityStorage) {
 
     var cityStorage = localStorage.getItem("cityStorage");
@@ -53,14 +53,7 @@ function clearPastCities () {
         pastT.remove();
     });
 
-    
-
-    // for (var e = 0; e < pastT.length; e++) {
-      
-    //   pastT[e].remove();
-    // };
-    
-    //  pastT.remove();
+    // this function clears away the past cities searched when a button is clicked
   };
 
 
@@ -79,17 +72,9 @@ function pastCities (cityStorage) {
             var city = event.target.innerText
             getCoordinates(city)
         })
-        
+        // this function creates the past cities into buttons and adds a class so they can pull up the forecast again
         
     }
-    // var cityButtonEl = document.querySelectorAll('.pastButton');
-    // console.log(cityButtonEl);
-    // cityButtonEl.forEach(button => {
-    //     button.addEventListener('click', function(event) {
-    //         var city = event.target.innerText
-    //         getCoordinates(city)
-    //     })
-    // })
 };
 
 
@@ -101,7 +86,7 @@ function getCoordinates(cityName) {
         .then(function (response) {
             return response.json();
         })
-
+            
         .then(function (data) {
             // console.log(data)
             var cityLat = data[0].lat;
@@ -130,7 +115,7 @@ function getWeather(cityLat, cityLon, cityName) {
 
             var nameCity = cityName;
 
-
+            // this is will append our div tags, by creating new variables to store the data pulled from the array
 
             var cityHumid = "Humidity: " + data.current.humidity;
 
