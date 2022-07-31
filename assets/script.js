@@ -47,6 +47,7 @@ function saveCity (userInput, cityStorage) {
 
 function clearPastCities () {
     var pastT = document.querySelectorAll(".pastButton");
+    cityArray = [];
     console.log(pastT);
     pastT.forEach(function (pastT) {
         pastT.remove();
